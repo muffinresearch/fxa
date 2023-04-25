@@ -47,6 +47,14 @@ const ConnectAnotherDeviceView = FormView.extend({
     if (this.isEligibleForPairing()) {
       return this.replaceCurrentPageWithPairScreen();
     }
+
+    // If this is a special case migration flow, skip this view and go straight to
+    // settings which will redirect to the redirect_to param if valid and present.
+    if (
+      this.relier.get('entrypoint') === Constants.FIREFOX_NEW_DEVICE_ENTRYPOINT
+    ) {
+      this.navigate('/settings');
+    }
   },
 
   afterRender() {

@@ -173,6 +173,7 @@ module.exports = {
   FIREFOX_SYNCED_TABS_ENTRYPOINT: 'synced-tabs',
   FIREFOX_TABS_SIDEBAR_ENTRYPOINT: 'tabs-sidebar',
   FIREFOX_FX_VIEW_ENTRYPOINT: 'fx-view',
+  FIREFOX_NEW_DEVICE_ENTRYPOINT: 'fx-new-device-sync',
 
   // This is compared against all secondary email
   // records, both verified and unverified

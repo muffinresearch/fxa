@@ -97,6 +97,30 @@ describe('views/connect_another_device', () => {
       });
     });
 
+    // This doesn't use the FX_NEW_DEVICE_ENTRYPOINT constant, because the
+    // test should fail if the constant changes. The device migration flow
+    // relies on this entrypoint value.
+    const deviceMigrationEntryPoint = 'fx-new-device-sync';
+
+    describe(`with device migration flow entrypoint=${deviceMigrationEntryPoint}`, () => {
+      beforeEach(() => {
+        relier.set('entrypoint', deviceMigrationEntryPoint);
+        relier.set('context', 'fx_desktop_v3');
+        sinon.spy(view, 'navigate');
+      });
+
+      it('sends the user to /settings', () => {
+        view.beforeRender();
+        assert.isTrue(view.navigate.calledWith('/settings'));
+      });
+
+      it(`doesn't send the user to /settings if the entrypoint is something else`, () => {
+        relier.set('entrypoint', 'something-else');
+        view.beforeRender();
+        assert.isFalse(view.navigate.calledWith('/settings'));
+      });
+    });
+
     [
       'fxa_discoverability_native',
       'preferences',
